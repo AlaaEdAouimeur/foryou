@@ -1,0 +1,29 @@
+.buttonBlank {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  transition: 0.1s ease-out;
+  padding: 12px 8px;
+}
+.outline {
+  border: 2px solid white;
+}
+.buttonCta {
+  @extend .buttonBlank;
+  @extend .outline;
+  background-color: transparent;
+  border-radius: 8px;
+  font-size: 16px;
+  color: white;
+  padding: 16px 32px 16px 32px;
+ 
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+}
