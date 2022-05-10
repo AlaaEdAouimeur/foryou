@@ -36,12 +36,24 @@
   letter-spacing: 0.1px;
   color: #252b42 !important;
 }
+.product_details_title {
+  @extend .product_title;
+  font-size: 24px;
+}
 .product_description {
   @extend .multiline_ellipsis;
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
+  letter-spacing: 0.2px;
+  color: #737373 !important;
+}
+.product_details_description {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
   letter-spacing: 0.2px;
   color: #737373 !important;
 }

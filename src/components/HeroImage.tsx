@@ -4,6 +4,7 @@ import { TextStyles } from "../constants/typography";
 import { Text } from "../components/common/Text";
 import { Button } from "./common/Button";
 import { ButtonStyles } from "../constants/buttons";
+import { useRouter } from "next/router";
 
 type Props = {
   imgUrl: string;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export const HeroImage = ({ imgUrl, cta, title }: Props) => {
+  const router = useRouter();
   return (
     <HeroImageWrapper imgUrl={imgUrl}>
       <InfoWrapper>
@@ -21,7 +23,11 @@ export const HeroImage = ({ imgUrl, cta, title }: Props) => {
           color={Colors.white}
           space="0px 0px 16px 0px"
         />
-        <Button value={cta} buttonClass={ButtonStyles.cta} />
+        <Button
+          value={cta}
+          buttonClass={ButtonStyles.cta}
+          onClick={() => router.push("/products")}
+        />
       </InfoWrapper>
     </HeroImageWrapper>
   );
@@ -29,7 +35,7 @@ export const HeroImage = ({ imgUrl, cta, title }: Props) => {
 
 const HeroImageWrapper = styled.div<{ imgUrl: string }>`
   width: 100vw;
-  height: 400px;
+  min-height: 400px;
   background-image: url(${(props) => props.imgUrl});
   background-size: cover;
   overflow: hidden;

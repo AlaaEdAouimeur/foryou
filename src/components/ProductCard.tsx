@@ -1,24 +1,32 @@
 import styled from "@emotion/styled";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import { Colors } from '../constants/colors';
+import Link from "next/link";
+import { Colors } from "../constants/colors";
 import { TextStyles } from "../constants/typography";
+import { Product } from "../models/Product";
 import { LabeledIcon } from "./common/LabledIcon";
 import { Text } from "./common/Text";
 
-export const ProductCard = () => {
+type Props = {
+  product: Product;
+};
+
+export const ProductCard = ({ product }: Props) => {
   return (
     <ProductCardWrapper>
-      <img src="https://picsum.photos/900/1600" />
+      <Link href={`/products/${product.id}`}>
+        <img src={product.image} />
+      </Link>
       <ProductInfoWrapper>
-        <Text value="Varsity Jacket" textClass={TextStyles.productTitle} />
-        <Text
-          value="Brand new styled with extra comfort jacket to look good Brand new styled with extra comfort jacket to look good Brand new styled with extra comfort jacket to look good Brand new styled with extra comfort jacket to look good "
-          textClass={TextStyles.productDescription}
-        />
+        <Text value={product.title} textClass={TextStyles.productTitle} />
       </ProductInfoWrapper>
       <PriceAndCartWrapper>
-        <Text value="$23.50" />
-        <LabeledIcon icon={faCartPlus} color={Colors.primary}/>
+        <Text value={`$${product.price.toFixed(2)}`} />
+        <LabeledIcon
+          icon={faCartPlus}
+          color={Colors.primary}
+          onClick={() => console.log("sda")}
+        />
       </PriceAndCartWrapper>
     </ProductCardWrapper>
   );
@@ -26,6 +34,7 @@ export const ProductCard = () => {
 
 const ProductCardWrapper = styled.div`
   display: flex;
+  cursor: pointer;
   flex-direction: column;
   justify-content: flex-start;
   height: 615px;
@@ -38,7 +47,6 @@ const ProductCardWrapper = styled.div`
 const ProductInfoWrapper = styled.div`
   display: flex;
   margin-top: 24px;
-  height: 190px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -47,7 +55,7 @@ const ProductInfoWrapper = styled.div`
 
 const PriceAndCartWrapper = styled.div`
   display: flex;
-  flex-direction: row ;
+  flex-direction: row;
   justify-content: space-between;
   width: 100%;
   padding: 8px 32px 8px 32px;

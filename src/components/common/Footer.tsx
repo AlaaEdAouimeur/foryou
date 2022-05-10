@@ -17,7 +17,7 @@ export const Footer = () => {
 
 const FooterWrapper = styled.footer`
   width: 100vw;
-  height: 74px;
+  min-height: 74px;
   display: flex;
   align-items: center;
   justify-content: center;

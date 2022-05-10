@@ -3,5 +3,7 @@ export enum TextStyles {
     logoBold = 'logo_bold',
     secondary = 'secondary',
     productTitle = 'product_title',
-    productDescription = 'product_description'
+    productDetailsTitle = 'product_details_title',
+    productDescription = 'product_description',
+    productDetailsDescription = 'product_details_description',
 }

@@ -10,6 +10,7 @@ type Props = {
   center?: boolean;
   full?: boolean;
   space?: string;
+  isClickable?: boolean;
 } & ComponentProps<"div">;
 
 export function Text({
@@ -21,7 +22,6 @@ export function Text({
   textClass = TextStyles.bodyRegular,
   ...props
 }: Props) {
-
   return (
     <Container
       center={center}
@@ -41,11 +41,13 @@ const Container = styled.div<{
   center: boolean;
   full: boolean;
   space?: string;
+  isClickable?: boolean;
   textClass: string;
 }>`
   text-align: ${(props) => (props.center ? "center" : "auto")};
   width: ${(props) => (props.full ? "100%" : "auto")};
   color: ${(props) => props.color};
-  ${(props) => props.space ? `margin: ${props.space}` : ""};
+  ${(props) => (props.space ? `margin: ${props.space}` : "")};
+  ${(props) => (props.isClickable ? `cursor: pointer` : "")};
   ${(props) => props.textClass};
 `;

@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import React, { ComponentProps } from "react";
 
 import { ButtonStyles } from "../../constants/buttons";
-import { Loader } from "./Loader";
 
 type Props = {
   show?: boolean;
@@ -49,7 +48,6 @@ export function Button({
         className={`${buttonClass} ${disabled ? "disabled" : ""}`}
       >
         <span>{value}</span>
-        <Loader show={loading} />
       </CustomButton>
     </Container>
   );

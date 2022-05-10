@@ -1,9 +1,13 @@
 import styled from "@emotion/styled";
 import { TextStyles } from "../constants/typography";
+import { Product } from "../models/Product";
 import { Text } from "./common/Text";
 import { ProductCard } from "./ProductCard";
 
-export const Featured = () => {
+type Props = {
+  products: Product[];
+};
+export const Featured = ({ products }: Props) => {
   return (
     <FeaturedWrapper>
       <FeaturedTitle>
@@ -15,8 +19,9 @@ export const Featured = () => {
         />
       </FeaturedTitle>
       <ProductsWrapper>
-        <ProductCard />
-        <ProductCard />
+        {products.map((product, index) => (
+          <ProductCard key={index} product={product} />
+        ))}
       </ProductsWrapper>
     </FeaturedWrapper>
   );
@@ -40,10 +45,10 @@ const ProductsWrapper = styled.div`
   display: grid;
   margin-top: 32px;
   grid-template-columns: auto auto;
-  @media (max-width: 704px) {
+  @media (max-width: 720px) {
     grid-template-columns: auto;
   }
   grid-row-gap: 16px;
-  grid-column-gap: 32px;
+  grid-column-gap: 64px;
   max-width: 688px;
 `;

@@ -1,22 +1,42 @@
 import type { NextPage } from "next";
 import styled from "@emotion/styled";
-import { Header } from "../components/common/Header";
-import { Footer } from "../components/common/Footer";
 import { HeroImage } from "../components/HeroImage";
-import { Featured } from '../components/Featured';
+import { Featured } from "../components/Featured";
+import { useProducts } from "../hooks/useProducts";
+import { useEffect, useState } from "react";
+import { Product } from "../models/Product";
+import { LoadingPlaceholder } from '../components/common/LoadingPlaceholder';
 
 const Home: NextPage = () => {
+  const { fetchProducts } = useProducts();
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchAndUpdateProducts = async () => {
+    setIsLoading(true);
+    const res = await fetchProducts();
+    if (res) {
+      setFeaturedProducts(res);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchAndUpdateProducts();
+  }, []);
+
+  if (isLoading) {
+  return <LoadingPlaceholder />;
+}
   return (
-    <div className="main">
-      <Header />
+    <>
       <HeroImage
         cta="Check them out"
         title="Check our latest products"
         imgUrl="https://picsum.photos/1600/900"
       />
-      <Featured />
-      <Footer />
-    </div>
+      <Featured products={featuredProducts || []} />
+    </>
   );
 };
 
