@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React, { ComponentProps } from "react";
-
 import { ButtonStyles } from "../../constants/buttons";
 
 type Props = {
