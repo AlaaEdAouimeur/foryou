@@ -76,14 +76,3 @@ const PriceAndCartWrapper = styled.div`
   align-items: center;
   margin-bottom: 32px;
 `;
-/**  <PriceAndCartWrapper>
-          <Text value={`$${product.price.toFixed(2)}`} />
-          <LabeledIcon icon={faCartPlus} color={Colors.primary} />
-        </PriceAndCartWrapper> 
-           <ProductInfoWrapper>
-        <TextWrapper>
-          <Text value={product.title} textClass={TextStyles.productTitle} />
-          <CategoryChip category={product.category} />
-        </TextWrapper>
-        <PriceAndCartWrapper></PriceAndCartWrapper>
-      </ProductInfoWrapper> */
