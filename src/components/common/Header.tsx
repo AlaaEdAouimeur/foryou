@@ -11,6 +11,7 @@ import { LabeledIcon } from "./LabledIcon";
 import useIsDevice from "../../hooks/useIsDevice";
 import { MobileHeader } from "./MobileHeader";
 import Link from "next/link";
+import { useCartProvider } from "../../providers/cart";
 
 type Props = {
   href: string;
@@ -33,6 +34,8 @@ const NavTitle = ({ href, title }: Props) => {
 
 export const Header = () => {
   const { isMobile } = useIsDevice();
+  const { cart } = useCartProvider();
+
   if (isMobile) {
     return <MobileHeader />;
   } else {
@@ -48,7 +51,7 @@ export const Header = () => {
         </TitlesWrapper>
         <IconsWrapper>
           <LabeledIcon color={Colors.primary} icon={faUser} />
-          <LabeledIcon color={Colors.primary} icon={faCartShopping} label="4" />
+          <LabeledIcon color={Colors.primary} icon={faCartShopping} label={`${cart.length}`} />
           <LabeledIcon color={Colors.primary} icon={faSearch} />
         </IconsWrapper>
       </HeaderWrapper>

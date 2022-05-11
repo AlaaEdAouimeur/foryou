@@ -4,13 +4,14 @@ import { TextStyles } from "../../constants/typography";
 import { Text } from "../../components/common/Text";
 import { Product } from "../../models/Product";
 import { useRouter } from "next/router";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { LabeledIcon } from "../../components/common/LabledIcon";
 import { Colors } from "../../constants/colors";
 import { useEffect, useState } from "react";
 import { useProducts } from "../../hooks/useProducts";
 import { LoadingPlaceholder } from "../../components/common/LoadingPlaceholder";
-import { ErrorPlaceholder } from '../../components/common/ErrorPlaceholder';
+import { ErrorPlaceholder } from "../../components/common/ErrorPlaceholder";
+import { useCartProvider } from "../../providers/cart";
 
 const ProductDetails: NextPage = () => {
   const { fetchProduct } = useProducts();
@@ -18,6 +19,16 @@ const ProductDetails: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { ppid } = router.query;
+  const { addToCart, removeFromCart, isItemInCart } = useCartProvider();
+  const canAddToCart = !isItemInCart(product?.id);
+
+  const cartClicked = () => {
+    if (canAddToCart) {
+      addToCart(product?.id);
+    } else {
+      removeFromCart(product?.id);
+    }
+  };
 
   const fetchAndUpdateProduct = async () => {
     setIsLoading(true);
@@ -61,16 +72,17 @@ const ProductDetails: NextPage = () => {
                 textClass={TextStyles.productTitle}
               />
               <LabeledIcon
-                icon={faCartPlus}
-                color={Colors.primary}
+                icon={canAddToCart ? faCartPlus : faCircleXmark}
+                color={canAddToCart ? Colors.primary : Colors.remove}
                 size={"2x"}
+                onClick={cartClicked}
               />
             </PriceAndCartWrapper>
           </InfoWrapper>
         </ProductWrapper>
       </PageWrapper>
     );
-  } else return <ErrorPlaceholder/>;
+  } else return <ErrorPlaceholder />;
 };
 
 const PageWrapper = styled.div`

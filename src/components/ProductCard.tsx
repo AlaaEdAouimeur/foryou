@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useState } from "react";
 import { Colors } from "../constants/colors";
 import { TextStyles } from "../constants/typography";
 import { Product } from "../models/Product";
+import { useCartProvider } from "../providers/cart";
 import { LabeledIcon } from "./common/LabledIcon";
 import { Text } from "./common/Text";
 
@@ -12,6 +14,17 @@ type Props = {
 };
 
 export const ProductCard = ({ product }: Props) => {
+  const { addToCart, removeFromCart, isItemInCart } = useCartProvider();
+  const canAddToCart = !isItemInCart(product.id);
+ 
+  const cartClicked = () => {
+    if (canAddToCart) {
+      addToCart(product.id);
+    } else {
+      removeFromCart(product.id);
+    }
+  };
+
   return (
     <ProductCardWrapper>
       <Link href={`/products/${product.id}`}>
@@ -23,9 +36,9 @@ export const ProductCard = ({ product }: Props) => {
       <PriceAndCartWrapper>
         <Text value={`$${product.price.toFixed(2)}`} />
         <LabeledIcon
-          icon={faCartPlus}
-          color={Colors.primary}
-          onClick={() => console.log("sda")}
+          icon={canAddToCart ? faCartPlus : faCircleXmark}
+          color={canAddToCart ? Colors.primary : Colors.remove}
+          onClick={cartClicked}
         />
       </PriceAndCartWrapper>
     </ProductCardWrapper>

@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { Colors } from "../constants/colors";
 import { TextStyles } from "../constants/typography";
 import { Product } from "../models/Product";
-import { CategoryChip } from "./common/CategoryChip";
+import { useCartProvider } from "../providers/cart";
 import { LabeledIcon } from "./common/LabledIcon";
 import { Text } from "./common/Text";
 
@@ -13,6 +13,9 @@ type Props = {
 };
 
 export const ProductTile = ({ product }: Props) => {
+  const { isItemInCart } = useCartProvider();
+  const canAddToCart = !isItemInCart(product?.id);
+
   return (
     <Link href={`/products/${product.id}`}>
       <ProductTileWrapper>
@@ -28,7 +31,11 @@ export const ProductTile = ({ product }: Props) => {
           </TextWrapper>
           <PriceAndCartWrapper>
             <Text value={`$${product.price.toFixed(2)}`} />
-            <LabeledIcon icon={faCartPlus} color={Colors.primary} size={"2x"} />
+            <LabeledIcon
+              icon={canAddToCart ? faCartPlus : faCircleXmark}
+              color={canAddToCart ? Colors.primary : Colors.remove}
+              size={"2x"}
+            />
           </PriceAndCartWrapper>
         </ProductInfoWrapper>
       </ProductTileWrapper>

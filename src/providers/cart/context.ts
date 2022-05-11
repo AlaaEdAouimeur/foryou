@@ -1,14 +1,18 @@
-
+import { createContext } from "react";
+import { NOOP_VOID } from '../../constants/common';
 
 export type ContextProps = {
-    count: number
-    addToCart: number
+    cart: number[]
+    addToCart: (productId?: number) => void;
+    removeFromCart: (productId?: number) => void;
+    isItemInCart: (productId?: number) => boolean;
 };
 
 const Context = createContext<ContextProps>({
-  isDialogOpen: false,
-  showDialog: NOOP_VOID,
-  closeDialog: NOOP_VOID,
+    cart: [],
+    addToCart: NOOP_VOID,
+    removeFromCart: NOOP_VOID,
+    isItemInCart: () => false,
 });
 
 export default Context;
